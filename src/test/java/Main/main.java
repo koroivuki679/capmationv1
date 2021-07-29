@@ -1,6 +1,12 @@
 package Main;
 
+import capmation.utilities.Reporting;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
@@ -11,19 +17,28 @@ import org.testng.xml.XmlTest;
 public class main {
 //  static TestNG testNG;
 
-  public static void main(String[] args){
+  public static void main(String[] args) throws IOException {
 
-    System.out.print("Hello World \n");
+    System.out.print("Executing Selenium Test Scripts for Capmation!!\n");
     TestNG testNG=new TestNG();
     List<String> suiteFiles=new ArrayList<String>();
+    Reporting rep = new Reporting();
+
 
     try {
       suiteFiles.add("./test-classes/TestNG.xml");
       testNG.setTestSuites(suiteFiles);
       testNG.run();
+
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    String url = System.getProperty("user.dir") + "\\test-classes\\test-output\\" + rep.time;
+    File htmlFile = new File(url);
+    Desktop.getDesktop().browse(htmlFile.toURI());
+
+
 
 
 

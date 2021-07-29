@@ -25,12 +25,18 @@ public class Reporting extends TestListenerAdapter
 	public ExtentHtmlReporter htmlReporter;
 	public ExtentReports extent;
 	public ExtentTest logger;
-	
+
+	public String timeStamp(){
+		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());//time stamp
+		String repName="Test-Report-"+timeStamp+".html";
+		return repName;
+	}
+
+	public String time = timeStamp();
 		
 	public void onStart(ITestContext testContext)
 	{
-		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());//time stamp
-		String repName="Test-Report-"+timeStamp+".html";
+		String repName=time;
 		
 		htmlReporter=new ExtentHtmlReporter(System.getProperty("user.dir")+ "/test-classes/test-output/"+repName);//specify location of the report
 		htmlReporter.loadXMLConfig(System.getProperty("user.dir")+ "/test-classes/extent-config.xml");
@@ -42,7 +48,7 @@ public class Reporting extends TestListenerAdapter
 		extent.setSystemInfo("Environemnt:","QA");
 		extent.setSystemInfo("User:","Silio");
 		
-		htmlReporter.config().setDocumentTitle("Park IQ Test Project"); // Tile of report
+		htmlReporter.config().setDocumentTitle("Capmation Test Project"); // Tile of report
 		htmlReporter.config().setReportName("Functional Test Automation Report"); // name of the report
 		htmlReporter.config().setTestViewChartLocation(ChartLocation.TOP); //location of the chart
 		htmlReporter.config().setTheme(Theme.DARK);
